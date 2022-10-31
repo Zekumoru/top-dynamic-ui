@@ -20,5 +20,6 @@ module.exports = {
     'class-methods-use-this': 'off',
     'no-new': 'off',
     'consistent-return': 'off',
+    'max-len': 'off',
   },
 };
