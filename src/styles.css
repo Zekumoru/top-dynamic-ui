@@ -8,7 +8,61 @@ h1 {
   padding: 24px 0 48px 0;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 .showcase-item {
   display: grid;
   place-items: center;
+}
+
+/* Dropdown */
+
+.tab {
+  width: 240px;
+  display: flex;
+  align-items: center;
+  background-color: rgb(51, 154, 240);
+  color: white;
+  font-weight: 500;
+  padding: 16px 24px;
+  cursor: pointer;
+  position: relative;
+}
+
+.tab-name {
+  margin-right: auto;
+}
+
+.arrow {
+  font-size: 1.4rem;
+}
+
+.dropdown {
+  width: 100%;
+  position: absolute;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  top: calc(100% + 8px);
+  left: 0;
+}
+
+.dropdown li {
+  font-weight: normal;
+  background-color: white;
+  color: rgb(150, 150, 150);
+  padding: 18px 24px 18px 20px;
+  border-left: 4px solid transparent;
+}
+
+.dropdown li.current,
+.dropdown li:hover {
+  border-color: rgb(51, 154, 240);
+  color: rgb(90, 90, 90);
+}
+
+.dropdown li:not(:last-child) {
+  border-bottom: 1px solid rgb(198, 198, 198);
 }
