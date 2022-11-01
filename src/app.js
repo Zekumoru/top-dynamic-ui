@@ -13,4 +13,5 @@ new Dropdown(tab, dropdownList, {
   onSelect: (selected) => {
     tabName.textContent = selected.textContent;
   },
+  animationDuration: '300ms',
 });
