@@ -16,18 +16,19 @@ export default class Dropdown {
     this.#open = open;
     this.#current = current;
     this.#animationDuration = animationDuration;
-    this.#setTabOnClick();
-    this.#setDropdownItemsEvents();
+    this.#setClickEvents();
+    this.#setItemsClickEvents();
+    this.#setOutsideClickEvents();
   }
 
-  #setTabOnClick() {
+  #setClickEvents() {
     this.#dropdown.addEventListener('click', () => {
       this.#dropdownMenu.style.transitionDuration = this.#animationDuration || '';
       if (this.#open) this.#dropdownMenu.classList.toggle(this.#open);
     });
   }
 
-  #setDropdownItemsEvents() {
+  #setItemsClickEvents() {
     [...this.#dropdownMenu.children].forEach((item) => {
       if (item.classList.contains(this.#current)) this.#currentItem = item;
 
@@ -40,6 +41,17 @@ export default class Dropdown {
         this.#currentItem = item;
         if (typeof this.#onSelect === 'function') this.#onSelect(item);
       });
+    });
+  }
+
+  #setOutsideClickEvents() {
+    document.addEventListener('click', (e) => {
+      let parent = e.target;
+      while (parent) {
+        if (parent === this.#dropdown) return;
+        parent = parent.parentElement;
+      }
+      this.#dropdownMenu.classList.remove(this.#open);
     });
   }
 }
