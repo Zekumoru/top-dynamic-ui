@@ -3,15 +3,15 @@ import 'normalize.css';
 import Dropdown from './components/Dropdown';
 import './styles.css';
 
-const tab = document.querySelector('.tab');
-const tabName = tab.querySelector('.tab-name');
-const dropdownList = tab.querySelector('.dropdown');
+const dropdown = document.querySelector('.dropdown');
+const dropdownText = dropdown.querySelector('.text');
+const dropdownMenu = dropdown.querySelector('.dropdown-menu');
 
-new Dropdown(tab, dropdownList, {
+new Dropdown(dropdown, dropdownMenu, {
   open: 'open',
   current: 'current',
   onSelect: (selected) => {
-    tabName.textContent = selected.textContent;
+    dropdownText.textContent = selected.textContent;
   },
   animationDuration: '300ms',
 });

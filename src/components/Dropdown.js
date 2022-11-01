@@ -1,17 +1,17 @@
 export default class Dropdown {
-  #tab;
   #dropdown;
+  #dropdownMenu;
   #onSelect;
   #open;
   #current;
   #animationDuration;
   #currentItem;
 
-  constructor(tab, dropdown, {
+  constructor(dropdown, dropdownMenu, {
     open, current, onSelect, animationDuration,
   } = {}) {
-    this.#tab = tab;
     this.#dropdown = dropdown;
+    this.#dropdownMenu = dropdownMenu;
     this.#onSelect = onSelect;
     this.#open = open;
     this.#current = current;
@@ -21,14 +21,14 @@ export default class Dropdown {
   }
 
   #setTabOnClick() {
-    this.#tab.addEventListener('click', () => {
-      this.#dropdown.style.transitionDuration = this.#animationDuration || '';
-      if (this.#open) this.#dropdown.classList.toggle(this.#open);
+    this.#dropdown.addEventListener('click', () => {
+      this.#dropdownMenu.style.transitionDuration = this.#animationDuration || '';
+      if (this.#open) this.#dropdownMenu.classList.toggle(this.#open);
     });
   }
 
   #setDropdownItemsEvents() {
-    [...this.#dropdown.children].forEach((item) => {
+    [...this.#dropdownMenu.children].forEach((item) => {
       if (item.classList.contains(this.#current)) this.#currentItem = item;
 
       item.addEventListener('click', () => {
