@@ -21,5 +21,6 @@ module.exports = {
     'no-new': 'off',
     'consistent-return': 'off',
     'max-len': 'off',
+    'no-continue': 'off',
   },
 };
