@@ -19,10 +19,20 @@ new Dropdown(dropdown, dropdownMenu, {
 
 const mobileMenu = document.querySelector('.mobile-menu');
 const selection = document.querySelector('.selection');
+
+const onMenuSelect = (selected) => {
+  selection.textContent = selected.textContent;
+};
+
 new CollapsibleMenu(mobileMenu, {
   more: 'more',
   dropdown: 'dropdown-menu dropdown-menu-animated dropdown-menu-2',
-  onSelect: (selected) => {
-    selection.textContent = selected.textContent;
+  onSelect: onMenuSelect,
+  onResize: (dropdown, dropdownMenu) => {
+    new Dropdown(dropdown, dropdownMenu, {
+      open: 'open',
+      animationDuration: '300ms',
+      onSelect: onMenuSelect,
+    });
   },
 });

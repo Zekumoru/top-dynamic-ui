@@ -1,26 +1,24 @@
-import Dropdown from './Dropdown';
-
 export default class CollapsibleMenu {
-  #menu;
-  #menuItems;
-  #moreItem;
+  menu;
+  menuItems;
+  moreItem;
+  onResize;
+  onSelect;
   #collapsedItems;
   #onResize;
   #dropdownClassName;
   #dropdownMenu;
   #allFit;
-  onResize;
-  onSelect;
 
   constructor(menu, {
     more, dropdown, onResize, onSelect,
   } = {}) {
-    this.#menu = menu;
-    this.#moreItem = menu.querySelector(`.${this.#getClassList(more)[0]}`);
-    this.#menuItems = menu.querySelector('ul').children;
-    this.#dropdownClassName = dropdown;
+    this.menu = menu;
+    this.moreItem = menu.querySelector(`.${this.#getClassList(more)[0]}`);
+    this.menuItems = menu.querySelector('ul').children;
     this.onResize = onResize;
     this.onSelect = onSelect;
+    this.#dropdownClassName = dropdown;
     this.#setMenuItemsClickEvents();
     this.#setPrivateOnResize();
     this.#setResizeObserver();
@@ -31,8 +29,8 @@ export default class CollapsibleMenu {
   }
 
   #setMenuItemsClickEvents() {
-    [...this.#menuItems].forEach((menuItem) => {
-      if (menuItem === this.#moreItem) return;
+    [...this.menuItems].forEach((menuItem) => {
+      if (menuItem === this.moreItem) return;
       menuItem.addEventListener('click', () => this.#selectMenuItem(menuItem));
     });
   }
@@ -50,7 +48,7 @@ export default class CollapsibleMenu {
       this.#renderMenuItems(width, moreIndex);
 
       if (typeof this.#onResize === 'function') this.#onResize();
-    }).observe(this.#menu);
+    }).observe(this.menu);
   }
 
   #setPrivateOnResize() {
@@ -71,45 +69,34 @@ export default class CollapsibleMenu {
         this.#dropdownMenu.appendChild(dropdownItem);
       });
 
-      if (typeof this.onResize === 'function') this.onResize(this.#collapsedItems);
+      if (typeof this.onResize === 'function') this.onResize(this.moreItem, this.#dropdownMenu, this.#collapsedItems);
     };
   }
 
   #setDropdownMenu() {
     if (this.#allFit) return;
-    if (this.#dropdownMenu) return;
-
-    this.#dropdownMenu = this.#moreItem.querySelector('ul');
-    if (this.#dropdownMenu) return;
-
-    // Create dropdown if it doesn't exist
+    if (this.#dropdownMenu) this.#dropdownMenu.remove();
     this.#dropdownMenu = document.createElement('ul');
     this.#dropdownMenu.className = this.#dropdownClassName ?? '';
-    new Dropdown(this.#moreItem, this.#dropdownMenu, {
-      open: 'open',
-      animationDuration: '300ms',
-      onSelect: (selected) => this.#selectMenuItem(selected),
-    });
-
-    this.#moreItem.appendChild(this.#dropdownMenu);
+    this.moreItem.appendChild(this.#dropdownMenu);
   }
 
   #findWidthAndMoreIndex() {
     let width = 0;
     let moreIndex = -1;
-    this.#moreItem.style.display = '';
+    this.moreItem.style.display = '';
 
     // Find the index where to insert 'More'
-    for (let i = 0; i < this.#menuItems.length; i++) {
-      const menuItem = this.#menuItems[i];
-      if (menuItem === this.#moreItem) continue;
+    for (let i = 0; i < this.menuItems.length; i++) {
+      const menuItem = this.menuItems[i];
+      if (menuItem === this.moreItem) continue;
 
       menuItem.style.display = '';
       menuItem.style.flex = 'initial';
 
       width += menuItem.offsetWidth;
-      const widthWithMore = width + this.#moreItem.offsetWidth;
-      if (widthWithMore <= this.#menu.offsetWidth) moreIndex = i;
+      const widthWithMore = width + this.moreItem.offsetWidth;
+      if (widthWithMore <= this.menu.offsetWidth) moreIndex = i;
       menuItem.style.flex = '';
     }
 
@@ -123,21 +110,21 @@ export default class CollapsibleMenu {
     this.#allFit = false;
 
     // If all list items can fit then do not render 'More'
-    if (width <= this.#menu.offsetWidth) {
-      this.#moreItem.style.display = 'none';
+    if (width <= this.menu.offsetWidth) {
+      this.moreItem.style.display = 'none';
       this.#allFit = true;
       return;
     }
 
     // Render only fit items
     for (let i = 0; i <= moreIndex; i++) {
-      const menuItem = this.#menuItems[i];
-      if (menuItem === this.#moreItem) continue;
+      const menuItem = this.menuItems[i];
+      if (menuItem === this.moreItem) continue;
       menuItem.style.display = '';
     }
-    for (let i = moreIndex + 1; i < this.#menuItems.length; i++) {
-      const menuItem = this.#menuItems[i];
-      if (menuItem === this.#moreItem) continue;
+    for (let i = moreIndex + 1; i < this.menuItems.length; i++) {
+      const menuItem = this.menuItems[i];
+      if (menuItem === this.moreItem) continue;
       menuItem.style.display = 'none';
       this.#collapsedItems.push(menuItem);
     }
