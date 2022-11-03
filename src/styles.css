@@ -133,6 +133,7 @@ ul {
   cursor: pointer;
   flex: 1;
   text-align: center;
+  background-color: white;
 }
 
 .mobile-menu li:hover {
