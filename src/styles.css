@@ -7,9 +7,13 @@ html {
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+body {
+  padding: 32px 24px 48px 24px;
+}
+
 h1 {
   text-align: center;
-  padding: 24px 0 48px 0;
+  padding: 0px 0 48px 0;
 }
 
 ul {
@@ -60,7 +64,7 @@ ul {
   cursor: pointer;
 }
 
-.arrow {
+.dropdown .arrow {
   margin-left: auto;
   font-size: 1.4rem;
 }
@@ -167,4 +171,61 @@ ul {
 
 .dropdown-menu-2 li:not(:last-child) {
   border-bottom: 1px solid rgb(198, 198, 198);
+}
+
+/* Carousel */
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel .image-container {
+  display: flex;
+  transition: transform 2s ease-in-out;
+}
+
+.carousel img {
+  width: 100%;
+}
+
+.carousel .arrow {
+  --padding-top: 19px;
+  --padding-bottom: 18px;
+  --padding-inner: 3px;
+  --padding-outer: 1px;
+  position: absolute;
+  background-color: rgba(220, 220, 220, 0.6);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.carousel .arrow-left {
+  padding: var(--padding-top) var(--padding-inner) var(--padding-bottom)
+    var(--padding-outer);
+  left: 0;
+}
+
+.carousel .arrow-right {
+  padding: var(--padding-top) var(--padding-outer) var(--padding-bottom)
+    var(--padding-inner);
+  right: 0;
+}
+
+.carousel .navigation {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  bottom: 16px;
+  padding: 4px;
+  color: rgb(150, 150, 150);
+}
+
+.carousel .navigation li {
+  cursor: pointer;
 }
