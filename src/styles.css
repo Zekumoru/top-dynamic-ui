@@ -18,6 +18,17 @@ ul {
   padding: 0;
 }
 
+.body-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.showcase-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(calc(768px / 2), 1fr));
+  row-gap: 40px;
+}
+
 .showcase-item {
   display: grid;
   place-items: center;
