@@ -23,9 +23,17 @@ ul {
   place-items: center;
 }
 
+.container {
+  width: 100%;
+}
+
 /* Dropdown */
 
 .dropdown {
+  position: relative;
+}
+
+.dropdown-1 {
   width: 300px;
   display: flex;
   align-items: center;
@@ -34,7 +42,7 @@ ul {
   font-weight: 500;
   padding: 16px 24px;
   cursor: pointer;
-  position: relative;
+  margin: 0 auto;
 }
 
 .arrow {
@@ -45,22 +53,29 @@ ul {
 .dropdown-menu {
   width: 100%;
   position: absolute;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  top: calc(100% + 8px);
+  top: 100%;
   left: 0;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.dropdown-menu-1 {
+  top: calc(100% + 8px);
+}
+
+.dropdown-menu-animated {
   transition: all;
   transform: translateY(-60px);
   visibility: hidden;
   opacity: 0;
 }
 
-.dropdown-menu.open {
+.dropdown-menu-animated.open {
   transform: translateY(0px);
   opacity: 1;
   visibility: visible;
 }
 
-.dropdown-menu li {
+.dropdown-menu-1 li {
   font-weight: normal;
   background-color: white;
   color: rgb(150, 150, 150);
@@ -68,28 +83,27 @@ ul {
   border-left: 4px solid transparent;
 }
 
-.dropdown-menu li.current,
-.dropdown-menu li:hover {
+.dropdown-menu-1 li.current,
+.dropdown-menu-1 li:hover {
   border-color: rgb(51, 154, 240);
   color: rgb(90, 90, 90);
 }
 
-.dropdown-menu li:not(:last-child) {
+.dropdown-menu-1 li:not(:last-child) {
   border-bottom: 1px solid rgb(198, 198, 198);
 }
 
 /* Mobile Menu */
 
 .mobile-menu {
-  width: 300px;
+  width: 80%;
   background-color: white;
-  resize: horizontal;
-  overflow-x: hidden;
+  margin: 0 auto;
 }
 
-.mobile-menu ul {
+.mobile-menu > ul {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   border: 1px solid rgb(210, 210, 210);
 }
 
@@ -106,11 +120,30 @@ ul {
 }
 
 .mobile-menu .more {
-  display: flex;
   padding-right: 18px;
+}
+
+.mobile-menu .text {
+  display: flex;
 }
 
 .mobile-menu .down {
   padding-left: 8px;
   margin-left: auto;
+}
+
+.dropdown-menu-2 {
+  top: calc(100% + 8px);
+}
+
+.dropdown-menu-2 li {
+  color: rgb(150, 150, 150);
+}
+
+.dropdown-menu-2 li:hover {
+  color: inherit;
+}
+
+.dropdown-menu-2 li:not(:last-child) {
+  border-bottom: 1px solid rgb(198, 198, 198);
 }

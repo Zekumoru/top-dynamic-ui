@@ -10,13 +10,13 @@
   <body>
     <h1>Dynamic UI Components</h1>
     <div class="showcase-row">
-      <div class="showcase-item" style="display: none">
+      <div class="showcase-item">
         <h2>Dropdown</h2>
         <div class="container">
-          <div class="dropdown">
+          <div class="dropdown dropdown-1">
             <div class="text">Dropdown</div>
             <div class="arrow mdi mdi-chevron-down"></div>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu dropdown-menu-animated dropdown-menu-1">
               <li>Item 1</li>
               <li>Item 2</li>
               <li>Item 3</li>
@@ -37,8 +37,10 @@
               <li>Chat</li>
               <li>Contacts</li>
               <li>About</li>
-              <li class="more">
-                More <span class="down mdi mdi-menu-down"></span>
+              <li class="dropdown more">
+                <div class="text">
+                  More <span class="down mdi mdi-menu-down"></span>
+                </div>
               </li>
             </ul>
           </nav>
