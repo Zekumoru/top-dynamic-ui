@@ -1,18 +1,18 @@
 export default class Dropdown {
   #dropdown;
   #dropdownMenu;
-  #onSelect;
   #open;
   #current;
   #animationDuration;
   #currentItem;
+  onSelect;
 
   constructor(dropdown, dropdownMenu, {
     open, current, onSelect, animationDuration,
   } = {}) {
     this.#dropdown = dropdown;
     this.#dropdownMenu = dropdownMenu;
-    this.#onSelect = onSelect;
+    this.onSelect = onSelect;
     this.#open = open;
     this.#current = current;
     this.#animationDuration = animationDuration;
@@ -46,7 +46,7 @@ export default class Dropdown {
         }
 
         this.#currentItem = item;
-        if (typeof this.#onSelect === 'function') this.#onSelect(item);
+        if (typeof this.onSelect === 'function') this.onSelect(item);
       });
     });
   }
