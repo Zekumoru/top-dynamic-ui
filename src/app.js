@@ -24,6 +24,8 @@ new ResizeObserver(() => {
   let width = 0;
   let indexWithMore = -1;
   moreItem.style.display = '';
+
+  // Find the index where to insert 'More'
   for (let i = 0; i < menuItems.length; i++) {
     const menuItem = menuItems[i];
     if (menuItem === moreItem) continue;
@@ -36,18 +38,21 @@ new ResizeObserver(() => {
     menuItem.style.flex = '';
   }
 
+  // If all list items can fit then do not render 'More'
   if (width <= mobileMenu.offsetWidth) {
     moreItem.style.display = 'none';
-  } else {
-    for (let i = 0; i <= indexWithMore; i++) {
-      const menuItem = menuItems[i];
-      if (menuItem === moreItem) continue;
-      menuItem.style.display = '';
-    }
-    for (let i = indexWithMore + 1; i < menuItems.length; i++) {
-      const menuItem = menuItems[i];
-      if (menuItem === moreItem) continue;
-      menuItem.style.display = 'none';
-    }
+    return;
+  }
+
+  // Render only fit items
+  for (let i = 0; i <= indexWithMore; i++) {
+    const menuItem = menuItems[i];
+    if (menuItem === moreItem) continue;
+    menuItem.style.display = '';
+  }
+  for (let i = indexWithMore + 1; i < menuItems.length; i++) {
+    const menuItem = menuItems[i];
+    if (menuItem === moreItem) continue;
+    menuItem.style.display = 'none';
   }
 }).observe(mobileMenu);
