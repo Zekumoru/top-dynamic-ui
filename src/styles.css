@@ -84,7 +84,7 @@ ul {
   width: 300px;
   background-color: white;
   resize: horizontal;
-  overflow-x: auto;
+  overflow-x: hidden;
 }
 
 .mobile-menu ul {

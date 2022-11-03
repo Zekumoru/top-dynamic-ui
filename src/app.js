@@ -50,7 +50,4 @@ new ResizeObserver(() => {
       menuItem.style.display = 'none';
     }
   }
-
-  const elementWidth = +mobileMenu.style.width.match(/^\d*/)[0];
-  if (elementWidth) mobileMenu.style.width = `${elementWidth + 1}px`;
 }).observe(mobileMenu);
