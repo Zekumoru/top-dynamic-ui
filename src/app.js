@@ -18,24 +18,39 @@ new Dropdown(dropdown, dropdownMenu, {
 
 const mobileMenu = document.querySelector('.mobile-menu');
 const menuItems = mobileMenu.querySelector('ul').children;
+const moreItem = mobileMenu.querySelector('li.more');
 
 new ResizeObserver(() => {
-  for (let i = menuItems.length - 1; mobileMenu.scrollWidth > mobileMenu.offsetWidth && i >= 0; i--) {
-    const menuItem = menuItems[i];
-    if (menuItem.classList.contains('more')) continue;
-
-    menuItem.style.display = 'none';
-  }
-
+  let width = 0;
+  let indexWithMore = -1;
+  moreItem.style.display = '';
   for (let i = 0; i < menuItems.length; i++) {
     const menuItem = menuItems[i];
-    if (menuItem.classList.contains('more')) continue;
-    if (!menuItem.style.display) continue;
-
+    if (menuItem === moreItem) continue;
     menuItem.style.display = '';
-    if (mobileMenu.scrollWidth > mobileMenu.offsetWidth) {
+    menuItem.style.flex = 'initial';
+
+    width += menuItem.offsetWidth;
+    const widthWithMore = width + moreItem.offsetWidth;
+    if (widthWithMore <= mobileMenu.offsetWidth) indexWithMore = i;
+    menuItem.style.flex = '';
+  }
+
+  if (width <= mobileMenu.offsetWidth) {
+    moreItem.style.display = 'none';
+  } else {
+    for (let i = 0; i <= indexWithMore; i++) {
+      const menuItem = menuItems[i];
+      if (menuItem === moreItem) continue;
+      menuItem.style.display = '';
+    }
+    for (let i = indexWithMore + 1; i < menuItems.length; i++) {
+      const menuItem = menuItems[i];
+      if (menuItem === moreItem) continue;
       menuItem.style.display = 'none';
-      break;
     }
   }
+
+  const elementWidth = +mobileMenu.style.width.match(/^\d*/)[0];
+  if (elementWidth) mobileMenu.style.width = `${elementWidth + 1}px`;
 }).observe(mobileMenu);
