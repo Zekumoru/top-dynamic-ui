@@ -29,19 +29,21 @@ export default class Dropdown {
   }
 
   #setItemsClickEvents() {
-    [...this.#dropdownMenu.children].forEach((item) => {
-      if (item.classList.contains(this.#current)) this.#currentItem = item;
+    new MutationObserver(() => {
+      [...this.#dropdownMenu.children].forEach((item) => {
+        if (item.classList.contains(this.#current)) this.#currentItem = item;
 
-      item.addEventListener('click', () => {
-        if (this.#current) {
-          if (this.#currentItem && this.#currentItem !== item) this.#currentItem.classList.remove(this.#current);
-          item.classList.add(this.#current);
-        }
+        item.addEventListener('click', () => {
+          if (this.#current) {
+            if (this.#currentItem && this.#currentItem !== item) this.#currentItem.classList.remove(this.#current);
+            item.classList.add(this.#current);
+          }
 
-        this.#currentItem = item;
-        if (typeof this.#onSelect === 'function') this.#onSelect(item);
+          this.#currentItem = item;
+          if (typeof this.#onSelect === 'function') this.#onSelect(item);
+        });
       });
-    });
+    }).observe(this.#dropdownMenu, { childList: true });
   }
 
   #setOutsideClickEvents() {

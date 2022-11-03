@@ -27,6 +27,11 @@ ul {
   width: 100%;
 }
 
+.container > * {
+  text-align: center;
+  margin: 0 auto;
+}
+
 /* Dropdown */
 
 .dropdown {
@@ -42,7 +47,6 @@ ul {
   font-weight: 500;
   padding: 16px 24px;
   cursor: pointer;
-  margin: 0 auto;
 }
 
 .arrow {
@@ -95,10 +99,14 @@ ul {
 
 /* Mobile Menu */
 
+.current-selected {
+  color: rgb(85, 85, 85);
+  margin-bottom: 8px;
+}
+
 .mobile-menu {
   width: 80%;
   background-color: white;
-  margin: 0 auto;
 }
 
 .mobile-menu > ul {

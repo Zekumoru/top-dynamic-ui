@@ -20,6 +20,12 @@ const mobileMenu = document.querySelector('.mobile-menu');
 const menuItems = mobileMenu.querySelector('ul').children;
 const moreItem = mobileMenu.querySelector('li.more');
 
+const selection = document.querySelector('.selection');
+
+const onSelect = (selected) => {
+  selection.textContent = selected.textContent;
+};
+
 const onResize = (hiddenItems) => {
   // Create dropdown if doesn't exist
   let dropdownMenu = moreItem.querySelector('.dropdown-menu');
@@ -30,6 +36,9 @@ const onResize = (hiddenItems) => {
     new Dropdown(moreItem, dropdownMenu, {
       open: 'open',
       animationDuration: '300ms',
+      onSelect: (selected) => {
+        if (typeof onSelect === 'function') onSelect(selected);
+      },
     });
 
     moreItem.appendChild(dropdownMenu);
@@ -44,6 +53,14 @@ const onResize = (hiddenItems) => {
     dropdownMenu.appendChild(dropdownItem);
   });
 };
+
+[...menuItems].forEach((menuItem) => {
+  if (menuItem === moreItem) return;
+
+  menuItem.addEventListener('click', () => {
+    if (typeof onSelect === 'function') onSelect(menuItem);
+  });
+});
 
 new ResizeObserver(() => {
   const hiddenItems = [];
