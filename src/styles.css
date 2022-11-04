@@ -27,7 +27,15 @@ ul {
   margin: 0 auto;
 }
 
+.showcase {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
 .showcase-row {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(calc(768px / 2), 1fr));
   row-gap: 40px;
