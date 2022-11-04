@@ -51,4 +51,7 @@ new Carousel(carousel, [
 ], {
   leftArrow: 'arrow-left',
   rightArrow: 'arrow-right',
+  nav: 'navigation',
+  navItem: 'mdi mdi-checkbox-blank-circle-outline',
+  navCurrent: 'mdi mdi-checkbox-blank-circle',
 });
