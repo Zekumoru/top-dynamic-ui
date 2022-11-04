@@ -8,9 +8,11 @@ export default class Carousel {
   #navCurrent;
   #navItems;
   #navCurrentItem;
+  #timeoutId;
+  #delay;
 
   constructor(carousel, images, {
-    imageContainer, leftArrow, rightArrow, nav, navItem, navCurrent,
+    imageContainer, leftArrow, rightArrow, nav, navItem, navCurrent, delay,
   } = {}) {
     this.#carousel = carousel;
     this.#images = images;
@@ -19,11 +21,13 @@ export default class Carousel {
     this.#navCurrent = navCurrent;
     this.#index = 0;
     this.#transitioning = false;
+    this.#delay = delay ?? 5000;
     this.#setImages();
     this.#setArrowClickEvents(carousel.querySelector(`.${leftArrow || 'left-arrow'}`));
     this.#setArrowClickEvents(carousel.querySelector(`.${rightArrow || 'right-arrow'}`), true);
     this.#setNavigation(carousel.querySelector(`.${nav || 'nav'}`));
     this.#setTransitioningEvents();
+    this.#setTransitionTimeout();
   }
 
   #setImages() {
@@ -42,11 +46,12 @@ export default class Carousel {
     arrow.addEventListener('click', () => {
       if (this.#transitioning) return;
 
-      this.#index--;
-      if (forward) this.#index += 2;
-      if (this.#index < 0) this.#index = this.#images.length - 1;
-      if (this.#index === this.#images.length) this.#index = 0;
-      this.#transition();
+      if (forward) {
+        this.next();
+        return;
+      }
+
+      this.prev();
     });
   }
 
@@ -87,12 +92,34 @@ export default class Carousel {
 
   #setTransitioningEvents() {
     this.#imageContainer.addEventListener('transitionstart', () => {
+      this.#clearTransitionTimeout();
       this.#transitioning = true;
     });
 
     this.#imageContainer.addEventListener('transitionend', () => {
       this.#transitioning = false;
+      this.#setTransitionTimeout();
     });
+  }
+
+  #setTransitionTimeout() {
+    this.#timeoutId = setTimeout(() => this.next(), this.#delay);
+  }
+
+  #clearTransitionTimeout() {
+    clearTimeout(this.#timeoutId);
+  }
+
+  next() {
+    this.#index++;
+    if (this.#index === this.#images.length) this.#index = 0;
+    this.#transition();
+  }
+
+  prev() {
+    this.#index--;
+    if (this.#index < 0) this.#index = this.#images.length - 1;
+    this.#transition();
   }
 
   #transition() {
