@@ -1,13 +1,13 @@
 import '@mdi/font/css/materialdesignicons.css';
 import 'normalize.css';
-import CollapsibleMenu from './components/CollapsibleMenu';
-import Dropdown from './components/Dropdown';
 import './styles.css';
+import Dropdown from 'tz-dui-components/components/Dropdown';
+import CollapsibleMenu from 'tz-dui-components/components/CollapsibleMenu';
+import Carousel from 'tz-dui-components/components/Carousel';
 import planetImg from './images/planet-jck5d.jpg';
 import planetImg2 from './images/planet-jck5d-2.jpg';
 import landscapeImg from './images/landscape-darkmoon-art.jpg';
 import lakeImg from './images/lake-elg21.jpg';
-import Carousel from './components/Carousel';
 
 const dropdown = document.querySelector('.dropdown-1');
 const dropdownText = dropdown.querySelector('.text');
