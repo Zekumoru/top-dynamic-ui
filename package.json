@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack",
     "serve": "webpack serve",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "release": "npm run build && git checkout dist && (rm -r assets/ ; rm * ; cp -r dist/* ./ && git add . && git commit -m 'Compile build' && git push) ; git checkout main"
   },
   "repository": {
     "type": "git",
