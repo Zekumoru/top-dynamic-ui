@@ -7,6 +7,7 @@ import planetImg from './images/planet-jck5d.jpg';
 import planetImg2 from './images/planet-jck5d-2.jpg';
 import landscapeImg from './images/landscape-darkmoon-art.jpg';
 import lakeImg from './images/lake-elg21.jpg';
+import Carousel from './components/Carousel';
 
 const dropdown = document.querySelector('.dropdown-1');
 const dropdownText = dropdown.querySelector('.text');
@@ -41,38 +42,10 @@ new CollapsibleMenu(mobileMenu, {
   },
 });
 
-const imageContainerCarousel = document.querySelector('.carousel .image-container');
-const images = [
+const carousel = document.querySelector('.carousel');
+new Carousel(carousel, [
   planetImg,
   lakeImg,
   planetImg2,
   landscapeImg,
-];
-
-images.forEach((image) => {
-  addImage(image);
-});
-
-function addImage(source) {
-  const image = document.createElement('img');
-  image.src = source;
-  imageContainerCarousel.appendChild(image);
-}
-
-let index = 0;
-let transitioning = false;
-imageContainerCarousel.addEventListener('click', () => {
-  if (transitioning) return;
-  if (index === (images.length - 1)) index = -1;
-
-  imageContainerCarousel.style.transform = `translateX(-${100 * (index + 1)}%)`;
-  index++;
-});
-
-imageContainerCarousel.addEventListener('transitionstart', () => {
-  transitioning = true;
-});
-
-imageContainerCarousel.addEventListener('transitionend', () => {
-  transitioning = false;
-});
+]);
