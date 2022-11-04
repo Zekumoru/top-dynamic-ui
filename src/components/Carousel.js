@@ -2,15 +2,21 @@ export default class Carousel {
   #carousel;
   #imageContainer;
   #images;
+  #index;
+  #transitioning;
 
   constructor(carousel, images, {
-    imageContainer,
+    imageContainer, leftArrow, rightArrow,
   } = {}) {
     this.#carousel = carousel;
     this.#images = images;
     this.#imageContainer = carousel.querySelector(`.${imageContainer || 'image-container'}`);
+    this.#index = 0;
+    this.#transitioning = false;
     this.#setImages();
-    this.#setTransition();
+    this.#setArrowClickEvents(carousel.querySelector(`.${leftArrow || 'left-arrow'}`));
+    this.#setArrowClickEvents(carousel.querySelector(`.${rightArrow || 'right-arrow'}`), true);
+    this.#setTransitioningEvents();
   }
 
   #setImages() {
@@ -25,23 +31,33 @@ export default class Carousel {
     this.#imageContainer.appendChild(image);
   }
 
-  #setTransition() {
-    let index = 0;
-    let transitioning = false;
-    this.#imageContainer.addEventListener('click', () => {
-      if (transitioning) return;
-      if (index === (this.#images.length - 1)) index = -1;
+  #setArrowClickEvents(arrow, forward = false) {
+    arrow.addEventListener('click', () => {
+      if (this.#transitioning) return;
 
-      this.#imageContainer.style.transform = `translateX(-${100 * (index + 1)}%)`;
-      index++;
+      this.#index--;
+      if (forward) this.#index += 2;
+      if (this.#index < 0) this.#index = this.#images.length - 1;
+      if (this.#index === this.#images.length) this.#index = 0;
+      this.#transition();
     });
+  }
 
+  #setTransitioningEvents() {
     this.#imageContainer.addEventListener('transitionstart', () => {
-      transitioning = true;
+      this.#transitioning = true;
     });
 
     this.#imageContainer.addEventListener('transitionend', () => {
-      transitioning = false;
+      this.#transitioning = false;
     });
+  }
+
+  #transition() {
+    if (this.#transitioning) return;
+
+    let translateTo = 0;
+    if (this.#index) translateTo = 100 * this.#index;
+    this.#imageContainer.style.transform = `translateX(-${translateTo}%)`;
   }
 }

@@ -48,4 +48,7 @@ new Carousel(carousel, [
   lakeImg,
   planetImg2,
   landscapeImg,
-]);
+], {
+  leftArrow: 'arrow-left',
+  rightArrow: 'arrow-right',
+});
